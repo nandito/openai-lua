@@ -2,6 +2,8 @@
 
 A simple package for interacting with the OpenAI API in Lua.
 
+🚧 work in progress
+
 ## Installation
 
 To install the OpenAI SDK, simply copy the `openai.lua` file to your project
