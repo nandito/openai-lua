@@ -2,22 +2,20 @@ local http = require("socket.http")
 local ltn12 = require("ltn12")
 local json = require("cjson")
 
-local ALLOWED_MODELS = dofile("models.lua")
-
-local openai = {}
-
+local allowed_models = dofile("models.lua")
 local ORIGIN = 'https://api.openai.com'
 local API_VERSION = 'v1'
 local OPEN_AI_URL = ORIGIN .. "/" ..API_VERSION
 local COMPLETION_URL = OPEN_AI_URL .. "/completions"
 
+local openai = {}
 local function configure(api_key)
     openai.api_key = api_key
 end
 
 local function createCompletion(model, prompt, temperature, max_tokens)
     local found = false
-    for _, value in pairs(ALLOWED_MODELS) do
+    for _, value in pairs(allowed_models) do
         if value == model then
             found = true
             break
