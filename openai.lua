@@ -1,4 +1,5 @@
 local http = require("socket.http")
+local ltn12 = require("ltn12")
 local json = require("cjson")
 
 local ALLOWED_MODELS = dofile("models.lua")
@@ -39,14 +40,18 @@ local function createCompletion(model, prompt, temperature, max_tokens)
         ["Authorization"] = "Bearer " .. openai.api_key
     }
 
-    local options = {
-        method = "POST",
-        body = json.encode(body),
-        headers = headers
-    }
+    local respbody = {}
 
-    local response = http.request(COMPLETION_URL, json.encode(options))
-    return response
+    http.request{
+        url = COMPLETION_URL,
+        method= "POST",
+        headers = headers,
+        source = ltn12.source.string(json.encode(body)),
+        sink = ltn12.sink.table(respbody),
+    }
+    respbody = table.concat(respbody)
+
+    return respbody
 end
 
 openai.configure = configure
