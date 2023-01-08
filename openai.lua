@@ -9,10 +9,20 @@ local OPEN_AI_URL = ORIGIN .. "/" ..API_VERSION
 local COMPLETION_URL = OPEN_AI_URL .. "/completions"
 
 local openai = {}
+
+--- Configures the OpenAI SDK with an API key.
+-- @param api_key The OpenAI API key to use for authenticating requests.
 local function configure(api_key)
     openai.api_key = api_key
 end
 
+--- Sends a request to the OpenAI API to generate a completion for a given prompt.
+-- @param model The name of the OpenAI model to use for generating the completion.
+-- @param prompt The prompt to generate a completion for.
+-- @param temperature The temperature parameter for the model.
+-- @param max_tokens The maximum number of tokens to generate in the completion.
+-- @return The response from the OpenAI API as a string.
+-- @raise Error if the model parameter is not one of the allowed models.
 local function createCompletion(model, prompt, temperature, max_tokens)
     local found = false
     for _, value in pairs(allowed_models) do

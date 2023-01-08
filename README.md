@@ -2,8 +2,6 @@
 
 A simple package for interacting with the OpenAI API in Lua.
 
-🚧 work in progress
-
 ## Installation
 
 To install the OpenAI SDK, simply copy the `openai.lua` file to your project
@@ -56,7 +54,7 @@ openai.configure(api_key)
 local model = "davinci"
 local prompt = "The quick brown fox jumps over the lazy dog"
 local temperature = 0.5
-local max_tokens = 10
+local max_tokens = 50
 
 local response = openai.createCompletion(model, prompt, temperature, max_tokens)
 print(response)
